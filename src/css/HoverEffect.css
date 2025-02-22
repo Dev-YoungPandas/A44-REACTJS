@@ -1,0 +1,29 @@
+
+.nav-link {
+  position: relative;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.nav-link .char {
+  position: relative;
+  --opa: 0;
+}
+
+.nav-link .char::after {
+  content: "";
+  width: 1ch;
+  top: 0;
+  left: 0;
+  position: absolute;
+  opacity: var(--opa);
+  background: currentColor;
+  height: 100%;
+}
+
+
+@media (max-width:640px) {
+  .nav-link{
+display: none;
+  }
+}

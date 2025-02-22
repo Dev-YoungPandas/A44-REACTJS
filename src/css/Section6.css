@@ -1,0 +1,8 @@
+/* Ensure backface is hidden for a clean flip effect */
+h2 {
+    backface-visibility: hidden;
+    /* Optional: initial state styling to prevent flash of unanimated content */
+    opacity: 1;
+    transform: perspective(1000px) rotateX(180deg);
+  }
+  

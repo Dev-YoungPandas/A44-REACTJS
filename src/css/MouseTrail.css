@@ -1,0 +1,17 @@
+/* MouseTrail.css */
+svg.trail {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    pointer-events: none; /* So it doesn’t block any mouse events */
+  }
+  
+  svg.trail path {
+    fill: none;
+    stroke: var(--color-trail, black); /* Fallback color if --color-trail isn't defined */
+    stroke-width: 9px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  
