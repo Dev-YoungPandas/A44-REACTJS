@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import  { useEffect, useRef } from 'react';
 import VanillaTilt from 'vanilla-tilt';
 import "../../css/Section2.css";
 import gsap from 'gsap/all';
@@ -107,7 +107,7 @@ const Section5 = () => {
           <div
             key={index}
             ref={containerRefs[index]}
-            className={`container xl:w-[30vw] w-[100%] h-[80vh] xl:h-[93vh] flex items-center justify-center ${index === 0 ? 'bg-white' : index === 1 ? 'bg-[#00d0d2]' : 'bg-black'
+            className={`container xl:w-[30vw] w-[100%] mt-[5vh] xl:mt-0 h-[80vh] xl:h-[93vh] flex items-center justify-center ${index === 0 ? 'bg-white' : index === 1 ? 'bg-[#00d0d2]' : 'bg-black'
               }`}
           >
             <div
@@ -116,7 +116,7 @@ const Section5 = () => {
                 } ${index === 0 ? 'bg-white' : ''}`}
             >
               <div className='w-full h-[29vh] relative '>
-                <h1 className='xl:text-[4vw]  text-[15vw] absolute  left-[10%] top-[60%] font-bold text-white mix-blend-exclusion'
+                <h1 className='xl:text-[4vw]  text-[15vw] absolute  left-[10%] top-[40%] xl:top-[60%] font-bold text-white mix-blend-exclusion'
                >
                   {title}
                 </h1>

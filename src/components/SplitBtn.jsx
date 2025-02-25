@@ -1,5 +1,5 @@
 import gsap from 'gsap/all';
-import React, { useEffect, useRef } from 'react';
+import  { useEffect, useRef } from 'react';
 import { MdArrowOutward } from 'react-icons/md';
 import SplitType from 'split-type';
 import "../css/Section2.css";
@@ -8,8 +8,8 @@ const SplitBtn = ({
     borderColor = "black",
     h3TextColor = "black",
     blueBoxBgColor = "#00D0D2",
-    arrowColor = "#fff", // Default value added
-    bookRefBgColor = "#00D0D2", // Default value added
+    arrowColor = "#fff", 
+    bookRefBgColor = "#00D0D2", 
     label = "BOOK A CONSULTATION"
 }) => {
     const frameRef = useRef();
@@ -102,7 +102,7 @@ const SplitBtn = ({
         >
             <div
                 ref={bookRef}
-                className="xl:w-[20vw] w-[60vw] h-[13vh] border flex backdrop-blur-[8px] relative items-center justify-center"
+                className="xl:w-[20vw] w-[60vw] xl:h-[13vh] h-[10vh] border flex backdrop-blur-[8px] relative items-center justify-center"
             >
                 <div ref={frameRef} className="xl:w-[20vw] w-[56vw] h-[9vh] xl:h-[13vh] absolute">
                     {lineRefs.map((ref, index) => (

@@ -1,8 +1,7 @@
-import React from 'react'
 
 const GallerySection2 = () => {
   return (
-    <div className='w-full overflow-hidden bg-green-200'>
+    <div className='w-full overflow-hidden '>
 
       <div className='grid  grid-cols-2 overflow-hidden md:grid-cols-3'>
         <div className='overflow-hidden relative group'>

@@ -115,7 +115,7 @@ const App = () => {
   return (
     <div className="ImageMain h-[150vh]  overflow-hidden relative w-[100%] bg-white text-black">
       <div className="header">
-        <h1 className="text-[7vw] font-semibold mt-[6vh] xl:mt-2 leading-[7vw] text-center">
+        <h1 className="text-[7vw] font-semibold mt-[6vh] uppercase xl:mt-2 leading-[7vw] text-center">
           human stories <br /> Superhuman audiovisuals
         </h1>
       </div>
