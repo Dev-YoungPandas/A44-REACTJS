@@ -17,6 +17,7 @@ const Section7 = () => {
     const H1Ref2 = useRef();
 
     const textRef = useRef();
+    const originalLetters = useRef([]);
 
   const frameRef = useRef();
   const bookRef = useRef();
@@ -27,85 +28,86 @@ const Section7 = () => {
   const line3Frame = useRef();
   const line4Frame = useRef();
 
+
   useEffect(() => {
-      if (textRef.current) {
-          new SplitType(textRef.current, { types: "words, chars" });
-      }
-  }, []);
+    if (textRef.current) {
+        // Split text into words and characters
+        const split = new SplitType(textRef.current, { types: "words, chars" });
+        // Store original text for each character
+        originalLetters.current = Array.from(textRef.current.querySelectorAll('.char')).map(char => char.innerHTML);
+    }
+}, []);
 
-  const handleMouseEnter = () => {
-      gsap.to(frameRef.current, {
-          scale: 0.95,
-          duration: 0.5,
-          ease: "power2.out",
-          borderColor: "#fff",
-      });
-      gsap.to(arrowRef.current, {
-          rotate: '360deg',
-          duration: 0.5
-      });
-      bookRef.current.style.backgroundColor = "#00D0D2";
-      textRef.current.style.color = "#000";
-      line1Frame.current.style.borderColor = "black";
-      line2Frame.current.style.borderColor = "black";
-      line3Frame.current.style.borderColor = "black";
-      line4Frame.current.style.borderColor = "black";
 
-      animateText();
-  };
+const animateText = () => {
+    const chars = textRef.current.querySelectorAll(".char");
+    // Kill any existing animations on the characters
+    gsap.killTweensOf(chars);
 
-  const handleMouseLeave = () => {
-      gsap.to(frameRef.current, {
-          scale: 1,
-          duration: 0.5,
-          ease: "power2.out",
-          borderColor: "#000",
-      });
-      gsap.to(arrowRef.current, {
-          rotate: '0deg',
-          duration: 0.5
-      });
-      bookRef.current.style.backgroundColor = "transparent";
-      textRef.current.style.color = "#000";
-      line1Frame.current.style.borderColor = "#000";
-      line2Frame.current.style.borderColor = "#000";
-      line3Frame.current.style.borderColor = "#000";
-      line4Frame.current.style.borderColor = "#000";
-  };
+    const lettersAndSymbols = "abcdefghijklmnopqrstuvwxyz!,".split("");
 
-  const animateText = () => {
-      const chars = textRef.current.querySelectorAll(".char");
-      const lettersAndSymbols =
-          "abcdefghijklmnopqrstuvwxyz!,".split("");
+    chars.forEach((char, index) => {
+        gsap.to(char, {
+            duration: 0.03,
+            repeat: 3,
+            repeatDelay: 0.04,
+            delay: (index + 1) * 0.07,
+            onUpdate: () => {
+                // Set a random letter during animation
+                char.innerHTML = lettersAndSymbols[Math.floor(Math.random() * lettersAndSymbols.length)];
+            },
+            onComplete: () => {
+                // Restore the original character after animation
+                char.innerHTML = originalLetters.current[index];
+            }
+        });
+    });
+};
 
-      chars.forEach((char, index) => {
-          let initialHTML = char.innerHTML;
-          let repeatCount = 0;
 
-          gsap.fromTo(
-              char,
-              { opacity: 0 },
-              {
-                  duration: 0.03,
-                  onStart: () => gsap.set(char, { "--opa": 1 }),
-                  onComplete: () => gsap.set(char, { innerHTML: initialHTML, delay: 0.03 }),
-                  repeat: 3,
-                  onRepeat: () => {
-                      repeatCount++;
-                      if (repeatCount === 1) {
-                          gsap.set(char, { "--opa": 0 });
-                      }
-                  },
-                  repeatRefresh: true,
-                  repeatDelay: 0.04,
-                  delay: (index + 1) * 0.07,
-                  innerHTML: () =>
-                      lettersAndSymbols[Math.floor(Math.random() * lettersAndSymbols.length)],
-                  opacity: 1,
-              }
-          );
-      });
-  };
+const handleMouseEnter = () => {
+    gsap.to(frameRef.current, {
+        scale: 0.95,
+        duration: 0.5,
+        ease: "power2.out",
+        borderColor: "#fff",
+    });
+    gsap.to(arrowRef.current, {
+        rotate: '360deg',
+        duration: 0.5
+    });
+    bookRef.current.style.backgroundColor = "#00D0D2";
+    textRef.current.style.color = "black";
+    line1Frame.current.style.borderColor = "#00D0D2";
+    line2Frame.current.style.borderColor = "#00D0D2";
+    line3Frame.current.style.borderColor = "#00D0D2";
+    line4Frame.current.style.borderColor = "#00D0D2";
+
+    animateText();
+};
+
+
+
+const handleMouseLeave = () => {
+    gsap.to(frameRef.current, {
+        scale: 1,
+        duration: 0.5,
+        ease: "power2.out",
+        borderColor: "#000",
+    });
+    gsap.to(arrowRef.current, {
+        rotate: '0deg',
+        duration: 0.5
+    });
+    bookRef.current.style.backgroundColor = "transparent";
+    textRef.current.style.color = "black";
+    line1Frame.current.style.borderColor = "black";
+    line2Frame.current.style.borderColor = "black";
+    line3Frame.current.style.borderColor = "black";
+    line4Frame.current.style.borderColor = "black";
+};
+
+
 
     useEffect(() => {
         const spanElement = H1Ref.current;
@@ -174,9 +176,9 @@ const Section7 = () => {
                     >
                         <div
                             ref={bookRef}
-                            className=" xl:w-[20vw] w-[60vw] h-[13vh] border border-gray-600 flex backdrop-blur-[8px] relative items-center justify-center"
+                            className=" xl:w-[20vw] w-[60vw] xl:h-[13vh] h-[10vh] border border-gray-600 flex backdrop-blur-[8px] relative items-center justify-center"
                         >
-                            <div ref={frameRef} className="xl:w-[20vw] w-[60vw] h-[13vh] absolute">
+                            <div ref={frameRef} className="xl:w-[20vw] w-[56vw] xl:h-[13vh] h-[9vh] absolute">
                                 <div ref={line1Frame} className="w-[20px] h-[20px] absolute top-0 left-0 border-l-2 border-[#000] border-t-2"></div>
                                 <div ref={line2Frame} className="w-[20px] h-[20px] absolute top-0 right-0 border-t-2 border-[#000] border-r-2"></div>
                                 <div ref={line3Frame} className="w-[20px] h-[20px] absolute bottom-0 border-l-2 border-b-2 border-[#000] left-0"></div>
@@ -185,7 +187,7 @@ const Section7 = () => {
                             <h3 ref={textRef} className="font-bold text-[#000] text-[16px] xl:text-xl">BOOK A CONSULTATION</h3>
                         </div>
 
-                        <div className="xl:w-[6vw] w-[20vw] h-[13vh] z-50 text-4xl font-bold flex items-center justify-center bg-[#00d0d2]">
+                        <div className="xl:w-[6vw] w-[20vw] xl:h-[13vh] h-[10vh] z-50 text-4xl font-bold flex items-center justify-center bg-[#00d0d2]">
                             <MdArrowOutward ref={arrowRef} />
                         </div>
                     </div>

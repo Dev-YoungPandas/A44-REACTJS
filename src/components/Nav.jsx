@@ -124,17 +124,24 @@ const Nav = () => {
 
     const [isOpen, setIsOpen] = useState(false);
 
-
     useEffect(() => {
         const screenWidth = window.innerWidth;
-    
+
         if (isOpen) {
-            gsap.to(".MenuSection", { right: "0vw", duration: 1, ease: "power2.out" });
-          } else {
-            gsap.to(".MenuSection", { right: isOpen ? "0vw" : screenWidth <= 768 ? "-100vw" : "-50vw",
-                 duration: 1, ease: "power2.out" });
-          }
-    }, [isOpen])
+            gsap.to(".MenuSection", {
+                right: "0vw",
+                duration: 1,
+                ease: "power2.out"
+            });
+        } else {
+            gsap.to(".MenuSection", {
+                right: screenWidth <= 1024 ? "-100vw" : "-50vw",
+                duration: 1,
+                ease: "power2.out"
+            });
+        }
+    }, [isOpen]);
+
 
     useEffect(() => {
         document.querySelectorAll(".nav-link").forEach((item) => {
@@ -148,7 +155,7 @@ const Nav = () => {
     return (
         <div className="w-full absolute font-semibold text-[17px] text-white z-[9999] flex items-center px-6 justify-between h-[12vh]">
             <div>
-                <Link to='/' >LOGO</Link>
+                <Link className=" text-white" to='/'>LOGO</Link>
             </div>
             <div className="flex gap-8">
                 <Link to="/" className="nav-link">Main</Link>

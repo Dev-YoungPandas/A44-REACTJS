@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 
 const AboutSection2Part2 = () => {
 
@@ -25,8 +25,8 @@ const AboutSection2Part2 = () => {
 
 
     return (
-        <div className="w-full py-[5vh] flex flex-col md:flex-row p-[2vw] bg-[#F9F9F9]">
-            <div className="w-full md:w-1/2 h-full flex flex-col ">
+        <div className="w-full py-[5vh] flex flex-col xl:flex-row p-[2vw] bg-[#F9F9F9]">
+            <div className="w-full xl:w-1/2 h-full flex flex-col ">
                 <h3 className="text-[5vw] leading-[5vw] xl:text-[1.8vw] font-bold w-[60vw] xl:w-[35vw] mb-[2.3vw]  xl:leading-[2.2vw]">
                     Our team of talented and passionate artist is dedicated to turning your tattoo dream into reality.
                 </h3>
@@ -39,7 +39,7 @@ const AboutSection2Part2 = () => {
                 </p>
 
                 <div className="mt-[6vw] flex  items-end justify-between">
-                    <div className="MultiImages w-[40vw] md:w-[18.3vw] h-[40vw] md:h-[18.3vw] p-[3vw] border-[0.05vw] overflow-hidden flex items-center justify-center border-black rounded-full">
+                    <div className="MultiImages w-[40vw] xl:w-[18.3vw] h-[40vw] xl:h-[18.3vw] p-[3vw] border-[0.05vw] overflow-hidden flex items-center justify-center border-black rounded-full">
                         <img className="w-[138px]  duration-300 transition-all object-cover" src={images[currentIndex]} alt="" />
                     </div>
                     <div className='mr-[2vw]'>

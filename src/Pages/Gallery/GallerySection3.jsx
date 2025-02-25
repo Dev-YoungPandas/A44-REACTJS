@@ -7,6 +7,7 @@ const GallerySection3 = () => {
   const frameRef = useRef();
   const bookRef = useRef();
   const textRef = useRef();
+    const originalLetters = useRef([]);
 
   const line1Frame = useRef();
   const line2Frame = useRef();
@@ -15,9 +16,39 @@ const GallerySection3 = () => {
 
   useEffect(() => {
     if (textRef.current) {
-      new SplitType(textRef.current, { types: "words, chars" });
+        // Split text into words and characters
+        const split = new SplitType(textRef.current, { types: "words, chars" });
+        // Store original text for each character
+        originalLetters.current = Array.from(textRef.current.querySelectorAll('.char')).map(char => char.innerHTML);
     }
-  }, []);
+}, []);
+
+
+
+const animateText = () => {
+    const chars = textRef.current.querySelectorAll(".char");
+    // Kill any existing animations on the characters
+    gsap.killTweensOf(chars);
+
+    const lettersAndSymbols = "abcdefghijklmnopqrstuvwxyz!,".split("");
+
+    chars.forEach((char, index) => {
+        gsap.to(char, {
+            duration: 0.03,
+            repeat: 3,
+            repeatDelay: 0.04,
+            delay: (index + 1) * 0.07,
+            onUpdate: () => {
+                // Set a random letter during animation
+                char.innerHTML = lettersAndSymbols[Math.floor(Math.random() * lettersAndSymbols.length)];
+            },
+            onComplete: () => {
+                // Restore the original character after animation
+                char.innerHTML = originalLetters.current[index];
+            }
+        });
+    });
+};
 
   const handleMouseEnter = () => {
     gsap.to(frameRef.current, {
@@ -53,52 +84,20 @@ const GallerySection3 = () => {
     line4Frame.current.style.borderColor = "black";
   };
 
-  const animateText = () => {
-    const chars = textRef.current.querySelectorAll(".char");
-    const lettersAndSymbols =
-      "abcdefghijklmnopqrstuvwxyz!,".split("");
 
-    chars.forEach((char, index) => {
-      let initialHTML = char.innerHTML;
-      let repeatCount = 0;
-
-      gsap.fromTo(
-        char,
-        { opacity: 0 },
-        {
-          duration: 0.03,
-          onStart: () => gsap.set(char, { "--opa": 1 }),
-          onComplete: () => gsap.set(char, { innerHTML: initialHTML, delay: 0.03 }),
-          repeat: 3,
-          onRepeat: () => {
-            repeatCount++;
-            if (repeatCount === 1) {
-              gsap.set(char, { "--opa": 0 });
-            }
-          },
-          repeatRefresh: true,
-          repeatDelay: 0.04,
-          delay: (index + 1) * 0.07,
-          innerHTML: () =>
-            lettersAndSymbols[Math.floor(Math.random() * lettersAndSymbols.length)],
-          opacity: 1,
-        }
-      );
-    });
-  };
 
   return (
     <div className="w-full flex items-center bg-white justify-center h-[45vh]">
       <div
-        className="Button-section3 w-[90vw] h-[13vh] flex items-center gap-1"
+        className="Button-section3 w-[90vw] h-[10vh] xl:h-[13vh] flex items-center gap-1"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
         <div
           ref={bookRef}
-          className="w-[90vw] h-[13vh] border border-gray-600 flex backdrop-blur-[8px] relative items-center justify-center"
+          className="w-[90vw] h-[10vh] xl:h-[13vh] border border-gray-600 flex backdrop-blur-[8px] relative items-center justify-center"
         >
-          <div ref={frameRef} className="w-[90vw] h-[13vh] absolute">
+          <div ref={frameRef} className="xl:w-[90vw] w-[87vw] h-[9vh] xl:h-[13vh] absolute">
             <div ref={line1Frame} className="w-[20px] h-[20px] absolute top-0 left-0 border-l-2 border-black border-t-2"></div>
             <div ref={line2Frame} className="w-[20px] h-[20px] absolute top-0 right-0 border-t-2 border-black border-r-2"></div>
             <div ref={line3Frame} className="w-[20px] h-[20px] absolute bottom-0 border-l-2 border-b-2 border-black left-0"></div>

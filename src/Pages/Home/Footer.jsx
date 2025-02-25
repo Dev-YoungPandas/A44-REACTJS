@@ -1,74 +1,89 @@
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import gsap from 'gsap/all'
 
 import "../../css/Section2.css";
 import { MdArrowOutward } from 'react-icons/md';
 import SplitType from 'split-type';
+import { Link } from 'react-router-dom';
 
 
-const Footer = () => {
+const debounce = (func, delay) => {
+    let timerId;
+    return (...args) => {
+        clearTimeout(timerId);
+        timerId = setTimeout(() => {
+            func.apply(this, args);
+        }, delay);
+    };
+};
 
-    const textRef = useRef();
-
-    const frameRef = useRef();
-    const bookRef = useRef();
-
-    const arrowRef = useRef();
-    const line1Frame = useRef();
-    const line2Frame = useRef();
-    const line3Frame = useRef();
-    const line4Frame = useRef();
-
-    useEffect(() => {
-        if (textRef.current) {
-            new SplitType(textRef.current, { types: "words, chars" });
+// Text splitter utility
+class TextSplitter {
+    constructor(textElement, options = {}) {
+        if (!textElement || !(textElement instanceof HTMLElement)) {
+            throw new Error("Invalid text element provided.");
         }
-    }, []);
 
-    const handleMouseEnter = () => {
-        gsap.to(frameRef.current, {
-            scale: 0.95,
-            duration: 0.5,
-            ease: "power2.out",
-            borderColor: "#fff",
-        });
-        gsap.to(arrowRef.current, {
-            rotate: '360deg',
-            duration: 0.5
-        });
-        bookRef.current.style.backgroundColor = "#00D0D2";
-        textRef.current.style.color = "#000";
-        line1Frame.current.style.borderColor = "black";
-        line2Frame.current.style.borderColor = "black";
-        line3Frame.current.style.borderColor = "black";
-        line4Frame.current.style.borderColor = "black";
+        const { resizeCallback, splitTypeTypes } = options;
+        this.textElement = textElement;
+        this.onResize = typeof resizeCallback === "function" ? resizeCallback : null;
+        this.splitText = new SplitType(this.textElement, { types: splitTypeTypes });
 
-        animateText();
-    };
+        if (this.onResize) {
+            this.initResizeObserver();
+        }
+    }
 
-    const handleMouseLeave = () => {
-        gsap.to(frameRef.current, {
-            scale: 1,
-            duration: 0.5,
-            ease: "power2.out",
-            borderColor: "#000",
-        });
-        gsap.to(arrowRef.current, {
-            rotate: '0deg',
-            duration: 0.5
-        });
-        bookRef.current.style.backgroundColor = "transparent";
-        textRef.current.style.color = "#000";
-        line1Frame.current.style.borderColor = "#000";
-        line2Frame.current.style.borderColor = "#000";
-        line3Frame.current.style.borderColor = "#000";
-        line4Frame.current.style.borderColor = "#000";
-    };
+    initResizeObserver() {
+        this.previousContainerWidth = null;
+        let resizeObserver = new ResizeObserver(
+            debounce((entries) => this.handleResize(entries), 100)
+        );
+        resizeObserver.observe(this.textElement);
+    }
 
-    const animateText = () => {
-        const chars = textRef.current.querySelectorAll(".char");
-        const lettersAndSymbols =
-            "abcdefghijklmnopqrstuvwxyz!,".split("");
+    handleResize(entries) {
+        const [{ contentRect }] = entries;
+        const width = Math.floor(contentRect.width);
+        if (this.previousContainerWidth && this.previousContainerWidth !== width) {
+            this.splitText.split();
+            this.onResize();
+        }
+        this.previousContainerWidth = width;
+    }
+
+    revert() {
+        return this.splitText.revert();
+    }
+
+    getChars() {
+        return this.splitText.chars;
+    }
+}
+
+// Hover animation
+class TextAnimator {
+    constructor(textElement) {
+        if (!textElement || !(textElement instanceof HTMLElement)) {
+            throw new Error("Invalid text element provided.");
+        }
+
+        this.textElement = textElement;
+        this.splitText();
+    }
+
+    splitText() {
+        this.splitter = new TextSplitter(this.textElement, {
+            splitTypeTypes: "words, chars",
+        });
+
+        this.originalChars = this.splitter.getChars().map((char) => char.innerHTML);
+    }
+
+    animate() {
+        this.reset();
+        const chars = this.splitter.getChars();
+        const lettersAndSymbols = "abcdefghijklmnopqrstuvwxyz!@#$%^&*-_=+:;<>,".split("");
 
         chars.forEach((char, index) => {
             let initialHTML = char.innerHTML;
@@ -97,6 +112,113 @@ const Footer = () => {
                 }
             );
         });
+    }
+
+    reset() {
+        const chars = this.splitter.getChars();
+        chars.forEach((char, index) => {
+            gsap.killTweensOf(char);
+            char.innerHTML = this.originalChars[index];
+        });
+    }
+}
+
+const Footer = () => {
+
+    const textRef = useRef();
+
+    const frameRef = useRef();
+    const bookRef = useRef();
+    const originalLetters = useRef([]);
+
+    const arrowRef = useRef();
+    const line1Frame = useRef();
+    const line2Frame = useRef();
+    const line3Frame = useRef();
+    const line4Frame = useRef();
+
+    useEffect(() => {
+        if (textRef.current) {
+            // Split text into words and characters
+            const split = new SplitType(textRef.current, { types: "words, chars" });
+            // Store original text for each character
+            originalLetters.current = Array.from(textRef.current.querySelectorAll('.char')).map(char => char.innerHTML);
+        }
+    }, []);
+    
+     useEffect(() => {
+            document.querySelectorAll(".nav-link").forEach((item) => {
+                const animator = new TextAnimator(item);
+                item.addEventListener("mouseenter", () => animator.animate());
+            });
+        }, []);
+    
+    const animateText = () => {
+        const chars = textRef.current.querySelectorAll(".char");
+        // Kill any existing animations on the characters
+        gsap.killTweensOf(chars);
+    
+        const lettersAndSymbols = "abcdefghijklmnopqrstuvwxyz!,".split("");
+    
+        chars.forEach((char, index) => {
+            gsap.to(char, {
+                duration: 0.03,
+                repeat: 3,
+                repeatDelay: 0.04,
+                delay: (index + 1) * 0.07,
+                onUpdate: () => {
+                    // Set a random letter during animation
+                    char.innerHTML = lettersAndSymbols[Math.floor(Math.random() * lettersAndSymbols.length)];
+                },
+                onComplete: () => {
+                    // Restore the original character after animation
+                    char.innerHTML = originalLetters.current[index];
+                }
+            });
+        });
+    };
+    
+    
+    const handleMouseEnter = () => {
+        gsap.to(frameRef.current, {
+            scale: 0.95,
+            duration: 0.5,
+            ease: "power2.out",
+            borderColor: "#fff",
+        });
+        gsap.to(arrowRef.current, {
+            rotate: '360deg',
+            duration: 0.5
+        });
+        bookRef.current.style.backgroundColor = "black";
+        textRef.current.style.color = "white";
+        line1Frame.current.style.borderColor = "white";
+        line2Frame.current.style.borderColor = "white";
+        line3Frame.current.style.borderColor = "white";
+        line4Frame.current.style.borderColor = "white";
+    
+        animateText();
+    };
+    
+    
+    
+    const handleMouseLeave = () => {
+        gsap.to(frameRef.current, {
+            scale: 1,
+            duration: 0.5,
+            ease: "power2.out",
+            borderColor: "#000",
+        });
+        gsap.to(arrowRef.current, {
+            rotate: '0deg',
+            duration: 0.5
+        });
+        bookRef.current.style.backgroundColor = "transparent";
+        textRef.current.style.color = "black";
+        line1Frame.current.style.borderColor = "black";
+        line2Frame.current.style.borderColor = "black";
+        line3Frame.current.style.borderColor = "black";
+        line4Frame.current.style.borderColor = "black";
     };
 
     return (
@@ -131,15 +253,15 @@ const Footer = () => {
 
 
                     <div
-                        className="Button-section3 xl:w-[30vw] xl:h-[13vh] w-[80vw] h-[13vh] mt-[3vh] ml-[7vw] xl:ml-0 mb-[3vw] mb-0 flex items-center gap-1"
+                        className="Button-section3 xl:w-[30vw] xl:h-[13vh] w-[80vw] h-[10vh] mt-[3vh] ml-[7vw] xl:ml-0 mb-[3vw]  flex items-center gap-1"
                         onMouseEnter={handleMouseEnter}
                         onMouseLeave={handleMouseLeave}
                     >
                         <div
                             ref={bookRef}
-                            className="xl:w-[20vw] w-[60vw] h-[13vh] border border-gray-600 flex backdrop-blur-[8px] relative items-center justify-center"
+                            className="xl:w-[20vw] w-[60vw] xl:h-[13vh] h-[10vh] border border-gray-600 flex backdrop-blur-[8px] relative items-center justify-center"
                         >
-                            <div ref={frameRef} className="xl:w-[20vw] w-[60vw] h-[13vh] absolute">
+                            <div ref={frameRef} className="xl:w-[20vw] w-[56vw] xl:h-[13vh] h-[9vh] absolute">
                                 <div ref={line1Frame} className="w-[20px] h-[20px] absolute top-0 left-0 border-l-2 border-[#000] border-t-2"></div>
                                 <div ref={line2Frame} className="w-[20px] h-[20px] absolute top-0 right-0 border-t-2 border-[#000] border-r-2"></div>
                                 <div ref={line3Frame} className="w-[20px] h-[20px] absolute bottom-0 border-l-2 border-b-2 border-[#000] left-0"></div>
@@ -148,7 +270,7 @@ const Footer = () => {
                             <h3 ref={textRef} className="font-bold text-[#000] text-[16px] xl:text-xl">BOOK A CONSULTATION</h3>
                         </div>
 
-                        <div className="xl:w-[6vw] w-[20vw] h-[13vh] z-50 text-4xl font-bold flex items-center justify-center bg-[#000]">
+                        <div className="xl:w-[6vw] w-[20vw] xl:h-[13vh] h-[10vh] z-50 text-4xl font-bold flex items-center justify-center bg-[#000]">
                             <MdArrowOutward ref={arrowRef} />
                         </div>
                     </div>
@@ -156,12 +278,12 @@ const Footer = () => {
 
                 </div>
                 <div className='xl:flex xl:flex-col flex-row flex justify-between xl:justify-normal items-center xl:items-end'>
-                    <p>Menu</p>
+                    <p className=' xl:text-[1.8vw] text-[5vw]'>Menu</p>
 
-                    <h4 className='xl:text-[1.8vw] text-[5vw]'>Main Page</h4>
-                    <h4 className='xl:text-[1.8vw] text-[5vw]'>About us</h4>
-                    <h4 className='xl:text-[1.8vw] text-[5vw]'>Price</h4>
-                    <h4 className='xl:text-[1.8vw] text-[5vw]'>Gallery</h4>
+                    <Link to='/' className=' xl:text-[1.8vw] text-[5vw]'>Main Page</Link>
+                    <Link to='/about' className=' xl:text-[1.8vw] text-[5vw]'>About us</Link>
+                    <Link to='/' className=' xl:text-[1.8vw] text-[5vw]'>Price</Link>
+                    <Link to='/gallery' className='n xl:text-[1.8vw] text-[5vw]'>Gallery</Link>
                 </div>
             </div>
             <div className='xl:flex-row xl:flex flex flex-col xl:items-end  items-center justify-between  mt-[2vw] px-[2.2vw]'>

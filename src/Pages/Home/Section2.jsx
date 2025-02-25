@@ -1,6 +1,6 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import React, { useEffect, useRef } from 'react'
+import  { useEffect, useRef } from 'react'
 import { MdArrowOutward } from "react-icons/md";
 import "../../css/Section2.css";
 
@@ -194,7 +194,7 @@ const Section2 = () => {
     >
       {/* <h1 className='text-[7.29vw] text-white top-[5%] left-[16%] z-[999] mix-blend-difference absolute font-extrabold'>ABOUT THE TEAM</h1> */}
       <div className='HeadTextAnimation flex items-center justify-center absolute top-[5%] h-[30vh] w-full left-[0%]'>
-        <h1 className='text-[7.29vw] font-bold'>
+        <h1 className='xl:text-[7.29vw] text-[13vw] font-bold'>
           <a href="#" className="flip-animate">
             <span ref={textRef} className='text-white' data-hover="ABOUT THE TEAM">ABOUT THE TEAM</span>
           </a>
@@ -244,9 +244,9 @@ const Section2 = () => {
         <p className=' text-[14px] xl:text-[18px] font-semibold text-center mt-7 w-[90%] xl:w-[60%]'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere, incidunt soluta perspiciatis ipsam rerum esse consequuntur doloremque iure vel nam autem sunt sint hic illo quo officiis libero molestiae ipsum nobis omnis expedita architecto accusamus accusantium minima.</p>
 
 
-        <div className='Button-section2 xl:w-[30vw] xl:h-[13vh] w-[80vw] flex mt-10 items-center gap-1 '>
-          <div ref={bookRef} className='xl:w-[20vw] w-[60vw] h-[13vh] border border-gray-600  flex backdrop-blur-[8px]  relative items-center justify-center' >
-            <div ref={frameRef} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className='xl:w-[20vw] w-[60vw] h-[13vh]  absolute'>
+        <div className='Button-section2 xl:w-[30vw] xl:h-[13vh] w-[80vw] h-[10vh] flex mt-10 items-center gap-1 '>
+          <div ref={bookRef} className='xl:w-[20vw] w-[60vw] xl:h-[13vh] h-[10vh] border border-gray-600  flex backdrop-blur-[8px]  relative items-center justify-center' >
+            <div ref={frameRef} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className='xl:w-[20vw] w-[56vw] xl:h-[13vh] h-[9vh]  absolute'>
               <div className='w-[20px] h-[20px] absolute top-0 left-0 border-l-2 border-black border-t-2 '></div>
               <div className='w-[20px] h-[20px] absolute top-0 right-0 border-t-2 border-black border-r-2 '></div>
               <div className='w-[20px] h-[20px] absolute bottom-0 border-l-2 border-b-2 border-black left-0 '></div>
@@ -257,7 +257,7 @@ const Section2 = () => {
 
           </div>
 
-          <div className='xl:w-[6vw] w-[20vw] h-[13vh] text-4xl font-bold flex items-center justify-center bg-[#00d0d2]'>
+          <div className='xl:w-[6vw] w-[20vw] xl:h-[13vh] h-[10vh] text-4xl font-bold flex items-center justify-center bg-[#00d0d2]'>
             <MdArrowOutward ref={arrowRef} />
 
 

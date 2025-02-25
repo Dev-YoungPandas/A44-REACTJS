@@ -1,6 +1,6 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { IoMdPlay } from "react-icons/io";
 import Myvideo from "../../assets/HypeCreoForm2.mp4";
 

@@ -15,14 +15,47 @@ const SplitBtn = ({
     const frameRef = useRef();
     const bookRef = useRef();
     const textRef = useRef();
+    const originalLetters = useRef([]);
+    
     const arrowRef = useRef();
     const lineRefs = [useRef(), useRef(), useRef(), useRef()];
 
-    useEffect(() => {
-        if (textRef.current) {
-            new SplitType(textRef.current, { types: "words, chars" });
-        }
-    }, []);
+   
+       useEffect(() => {
+           if (textRef.current) {
+               // Split text into words and characters
+               const split = new SplitType(textRef.current, { types: "words, chars" });
+               // Store original text for each character
+               originalLetters.current = Array.from(textRef.current.querySelectorAll('.char')).map(char => char.innerHTML);
+           }
+       }, []);
+
+       const animateText = () => {
+        const chars = textRef.current.querySelectorAll(".char");
+        // Kill any existing animations on the characters
+        gsap.killTweensOf(chars);
+
+        const lettersAndSymbols = "abcdefghijklmnopqrstuvwxyz!,".split("");
+
+        chars.forEach((char, index) => {
+            gsap.to(char, {
+                duration: 0.03,
+                repeat: 3,
+                repeatDelay: 0.04,
+                delay: (index + 1) * 0.07,
+                onUpdate: () => {
+                    // Set a random letter during animation
+                    char.innerHTML = lettersAndSymbols[Math.floor(Math.random() * lettersAndSymbols.length)];
+                },
+                onComplete: () => {
+                    // Restore the original character after animation
+                    char.innerHTML = originalLetters.current[index];
+                }
+            });
+        });
+    };
+
+   
 
     const handleMouseEnter = () => {
         gsap.to(frameRef.current, {
@@ -37,8 +70,10 @@ const SplitBtn = ({
         });
         bookRef.current.style.backgroundColor = bookRefBgColor;
         textRef.current.style.color = h3TextColor;
-        animateText();
         lineRefs.forEach(line => line.current.style.borderColor = h3TextColor);
+
+    
+        animateText();
     };
 
     const handleMouseLeave = () => {
@@ -57,43 +92,11 @@ const SplitBtn = ({
         lineRefs.forEach(line => line.current.style.borderColor = borderColor);
     };
 
-    const animateText = () => {
-        const chars = textRef.current?.querySelectorAll(".char");
-        if (!chars || chars.length === 0) return; // Ensure text is split
-
-        const lettersAndSymbols = "abcdefghijklmnopqrstuvwxyz!,".split("");
-
-        chars.forEach((char, index) => {
-            let initialHTML = char.innerHTML;
-            let repeatCount = 0;
-
-            gsap.fromTo(
-                char,
-                { opacity: 0 },
-                {
-                    duration: 0.03,
-                    onStart: () => gsap.set(char, { "--opa": 1 }),
-                    onComplete: () => gsap.set(char, { innerHTML: initialHTML }),
-                    repeat: 3,
-                    onRepeat: () => {
-                        repeatCount++;
-                        if (repeatCount === 1) {
-                            gsap.set(char, { "--opa": 0 });
-                        }
-                    },
-                    repeatRefresh: true,
-                    repeatDelay: 0.04,
-                    delay: (index + 1) * 0.07,
-                    innerHTML: () => lettersAndSymbols[Math.floor(Math.random() * lettersAndSymbols.length)],
-                    opacity: 1,
-                }
-            );
-        });
-    };
+  
 
     return (
         <div
-            className="Button-section3 xl:w-[30vw] xl:h-[13vh] w-[80vw] flex items-center gap-1"
+            className="Button-section3 xl:w-[30vw] xl:h-[13vh] h-[10vh] w-[80vw] flex items-center gap-1"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
         >
@@ -101,7 +104,7 @@ const SplitBtn = ({
                 ref={bookRef}
                 className="xl:w-[20vw] w-[60vw] h-[13vh] border flex backdrop-blur-[8px] relative items-center justify-center"
             >
-                <div ref={frameRef} className="xl:w-[20vw] w-[60vw] h-[13vh] absolute">
+                <div ref={frameRef} className="xl:w-[20vw] w-[56vw] h-[9vh] xl:h-[13vh] absolute">
                     {lineRefs.map((ref, index) => (
                         <div key={index} ref={ref} className={`w-[20px] h-[20px] absolute ${index === 0 ? 'top-0 left-0 border-l-2 border-t-2' : 
                         index === 1 ? 'top-0 right-0 border-t-2 border-r-2' : 
@@ -113,7 +116,7 @@ const SplitBtn = ({
                 <h3 ref={textRef} className="font-bold text-xl" style={{ color: h3TextColor }}>{label}</h3>
             </div>
 
-            <div className="blueBox xl:w-[6vw] w-[20vw] h-[13vh] z-50 text-4xl font-bold flex items-center justify-center" style={{ backgroundColor: blueBoxBgColor }}>
+            <div className="blueBox xl:w-[6vw] w-[20vw] h-[10vh] xl:h-[13vh] z-50 text-4xl font-bold flex items-center justify-center" style={{ backgroundColor: blueBoxBgColor }}>
                 <MdArrowOutward ref={arrowRef} style={{ color: arrowColor }} />
             </div>
         </div>

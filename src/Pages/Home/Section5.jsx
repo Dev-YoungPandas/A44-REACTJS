@@ -86,8 +86,8 @@ const Section5 = () => {
 
   return (
     <div className='w-full '>
-      <div className='w-full mt-[5vh]'>
-        <div className='HeadTextAnimation'>
+      <div className='w-full py-[3vh] mt-[5vh]'>
+        <div className='HeadTextAnimation '>
           <h1 className='text-[7vw] text-center font-extrabold '>
             <a href="#" className="flip-animate">
               <span ref={textRef} className='text-white' data-hover="EXPLORE OUR">EXPLORE OUR</span>
@@ -102,8 +102,8 @@ const Section5 = () => {
           </h1>
         </div>
       </div>
-      <div className='w-full  xl:flex xl:flex-row  flex-col mt-[3vw]  xl:mt-1 items-center justify-between px-[2.5vw]'>
-        {['QUANTUM', 'HYPER', 'QUANTUM'].map((title, index) => (
+      <div className='w-full relative  xl:flex xl:flex-row  flex-col mt-[3vw]  xl:mt-1 items-center justify-between px-[2.5vw]'>
+        {['QUANTUM', 'QUANTUM', 'QUANTUM'].map((title, index) => (
           <div
             key={index}
             ref={containerRefs[index]}
@@ -116,7 +116,8 @@ const Section5 = () => {
                 } ${index === 0 ? 'bg-white' : ''}`}
             >
               <div className='w-full h-[29vh] relative '>
-                <h1 className='xl:text-[4vw] text-[15vw]  absolute left-[10%] top-[60%] font-bold text-white mix-blend-exclusion'>
+                <h1 className='xl:text-[4vw]  text-[15vw] absolute  left-[10%] top-[60%] font-bold text-white mix-blend-exclusion'
+               >
                   {title}
                 </h1>
                 <img

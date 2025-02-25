@@ -124,10 +124,10 @@ const Carousel = () => {
         <IoIosArrowForward />
 
         </div>
-        <div className="carousel__slider" ref={sliderRef}>
+        <div className="carousel__slider bg-green-300" ref={sliderRef}>
           {slides.map((slide, index) => (
             <div className="carousel__slider__item" key={index}>
-              <div className="item__3d-frame">
+              <div className="item__3d-frame bg-amber-200">
                 {slide.nested ? (
                   <div className="item__3d-frame__box item__3d-frame__box--front">
                     <div className="item__3d-frame__box item__3d-frame__box--front">
