@@ -31,7 +31,7 @@ const AboutSection2Part2 = () => {
                     Our team of talented and passionate artist is dedicated to turning your tattoo dream into reality.
                 </h3>
 
-                <p className="text-[4vw] xl:text-[1vw] font-medium xl:font-semibold leading-[4vw] xl:leading-[1.5vw] w-full xl:w-[39vw]">
+                <p className="text-[4vw] xl:text-[1vw] font-light xl:font-semibold leading-[4vw] xl:leading-[1.5vw] w-full xl:w-[39vw]">
                     Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsa earum deserunt nihil unde laudantium
                     voluptatibus nisi ipsam beatae officiis quasi veniam quisquam cumque ad facilis recusandae voluptates,
                     voluptate quia eligendi dolore facere sint. A sit temporibus assumenda explicabo, nisi ipsa officiis, id
@@ -39,14 +39,14 @@ const AboutSection2Part2 = () => {
                 </p>
 
                 <div className="mt-[6vw] flex  items-end justify-between">
-                    <div className="MultiImages w-[40vw] xl:w-[18.3vw] h-[40vw] xl:h-[18.3vw] p-[3vw] border-[0.05vw] overflow-hidden flex items-center justify-center border-black rounded-full">
-                        <img className="w-[138px]  duration-300 transition-all object-cover" src={images[currentIndex]} alt="" />
+                    <div className="MultiImages w-[25vw] xl:w-[18.3vw] h-[25vw] xl:h-[18.3vw] p-[3vw] border-[0.05vw] overflow-hidden flex items-center justify-center border-black rounded-full">
+                        <img className="xl:w-[138px] w-[80px]  duration-300 transition-all object-cover" src={images[currentIndex]} alt="" />
                     </div>
                     <div className='mr-[2vw]'>
                         <p className="xl:w-[7vw] w-[15vw] text-[3vw] leading-[3vw] xl:text-[1vw] font-medium mb-[0.5vw] text-right xl:leading-[1vw]">
                             HYPE 2024 ALL RIGHTS RESERVED
                         </p>
-                        <span className="w-fit text-[6vw] md:text-[2.2vw] font-medium leading-[2.2vw] text-left ml-auto">
+                        <span className="w-fit text-[6vw]  xl:text-[2.2vw] font-medium leading-[2.2vw] text-left ml-auto">
                             (01)
                         </span>
                     </div>

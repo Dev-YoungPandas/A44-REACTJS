@@ -142,18 +142,40 @@ const handleMouseLeave = () => {
 
 
     useEffect(() => {
-        gsap.to(imageRef.current, {
-            y: "-50vw",
+        const mm = gsap.matchMedia();
+    
+        // For desktop and tablet devices
+        mm.add("(min-width: 768px)", () => {
+          gsap.to(imageRef.current, {
+            y: "-50vw", // Moves the image upward by 50% of the viewport width
             ease: "power1.out",
             scrollTrigger: {
-                trigger: imageRef.current,
-                start: "top bottom",
-                end: "bottom top",
-                scrub: 2,
+              trigger: imageRef.current,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 2,
             },
+          });
         });
-    }, []);
-
+    
+        // For mobile devices
+        mm.add("(max-width: 767px)", () => {
+          gsap.to(imageRef.current, {
+            y: "-50vh", // Moves the image upward by 50% of the viewport height for mobile
+            ease: "power1.out",
+            scrollTrigger: {
+              trigger: imageRef.current,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 2,
+            },
+          });
+        });
+    
+        return () => {
+          mm.revert(); // Cleanup the matchMedia listeners on component unmount
+        };
+      }, []);
 
 
 
@@ -163,7 +185,7 @@ const handleMouseLeave = () => {
                 <h5 className='xl:text-[18px] font-bold xl:tracking-[16px]'>HYPE TATTOO TORONTO</h5>
             </div>
 
-            <img ref={imageRef} data-scroll data-scroll-speed="-1" className=' w-[35vw] absolute top-[50vh] right-[12vw] object-cover object-top' src="https://hype-tattoo.com/wp-content/themes/HYPE_studio/img/gift-card.png" alt="" />
+            <img ref={imageRef} data-scroll data-scroll-speed="-1" className=' xl:w-[35vw] w-[80vw] absolute z-[99999] top-[50vh] right-[12vw] object-cover object-top' src="https://hype-tattoo.com/wp-content/themes/HYPE_studio/img/gift-card.png" alt="" />
 
             <div className='px-[3vw] flex flex-col xl:items-start items-center '>
                 <p className='xl:text-[1.9vw] text-[4vw] xl:text-start text-center font-extrabold'>Share the joy of creativity <br /> and self-expression with <br /> those you love!</p>

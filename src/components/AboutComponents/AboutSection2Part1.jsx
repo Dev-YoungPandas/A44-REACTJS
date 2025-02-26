@@ -1,5 +1,5 @@
 import gsap from 'gsap/all';
-import React, { useEffect, useRef } from 'react'
+import  { useEffect, useRef } from 'react'
 import { PiStarFourFill } from "react-icons/pi";
 import "../../css/Section2.css";
 
@@ -41,8 +41,8 @@ const AboutSection2Part1 = () => {
     }, []);
 
   return (
-    <div className='w-full  sm:h-[50vh] lg:h-[60vh] xl:h-[70vh] flex items-center gap-8 justify-center flex-col bg-[#F9F9F9]'>
-              <PiStarFourFill className='text-[7vw]' />
+    <div className='w-full  sm:h-[50vh] lg:h-[60vh] xl:h-[70vh] pt-[8vh] flex items-center gap-8 justify-center flex-col bg-[#F9F9F9]'>
+              <PiStarFourFill className='xl:text-[7vw] text-[18vw]' />
         
         
               <div className='HeadTextAnimation'>

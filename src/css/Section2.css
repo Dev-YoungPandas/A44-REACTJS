@@ -5,8 +5,6 @@
     color: white;
 }
 
-
-  
 .HeadTextAnimation  a {
     text-decoration: none;
     transition: color 0.7s;
@@ -60,6 +58,30 @@
   }
   
   .Button-section3 h3 .char::after {
+    content: "";
+    width: 1ch;
+    top: 0;
+    left: 0;
+    position: absolute;
+    opacity: var(--opa);
+    background: currentColor;
+    height: 100%;
+  }
+
+
+  /* home second section */
+  .Button-section2 h3 {
+    position: relative;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  
+  .Button-section2 h3 .char {
+    position: relative;
+    --opa: 0;
+  }
+  
+  .Button-section2 h3 .char::after {
     content: "";
     width: 1ch;
     top: 0;

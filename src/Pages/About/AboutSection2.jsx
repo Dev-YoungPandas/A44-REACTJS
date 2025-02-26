@@ -7,7 +7,7 @@ const AboutSection2 = () => {
 
 
   return (
-    <div >
+    <div className="bg-[#F9F9F9]">
       <AboutSection2Part1 />
       <AboutSection2Part2/>
       <AboutSection2Part3/>

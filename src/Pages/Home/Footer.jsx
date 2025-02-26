@@ -253,7 +253,7 @@ const Footer = () => {
 
 
                     <div
-                        className="Button-section3 xl:w-[30vw] xl:h-[13vh] w-[80vw] h-[10vh] mt-[3vh] ml-[7vw] xl:ml-0 mb-[3vw]  flex items-center gap-1"
+                        className="Button-section3 xl:w-[30vw] bg-[black] xl:bg-transparent xl:h-[13vh] w-[80vw] h-[10vh] mt-[3vh] ml-[7vw] xl:ml-0 mb-[3vw]  flex items-center gap-1"
                         onMouseEnter={handleMouseEnter}
                         onMouseLeave={handleMouseLeave}
                     >
@@ -262,12 +262,12 @@ const Footer = () => {
                             className="xl:w-[20vw] w-[60vw] xl:h-[13vh] h-[10vh] border border-gray-600 flex backdrop-blur-[8px] relative items-center justify-center"
                         >
                             <div ref={frameRef} className="xl:w-[20vw] w-[56vw] xl:h-[13vh] h-[9vh] absolute">
-                                <div ref={line1Frame} className="w-[20px] h-[20px] absolute top-0 left-0 border-l-2 border-[#000] border-t-2"></div>
-                                <div ref={line2Frame} className="w-[20px] h-[20px] absolute top-0 right-0 border-t-2 border-[#000] border-r-2"></div>
-                                <div ref={line3Frame} className="w-[20px] h-[20px] absolute bottom-0 border-l-2 border-b-2 border-[#000] left-0"></div>
-                                <div ref={line4Frame} className="w-[20px] h-[20px] absolute bottom-0 right-0 border-[#000] border-r-2 border-b-2"></div>
+                                <div ref={line1Frame} className="w-[20px] h-[20px] absolute top-0 left-0 border-l-2 border-[#00D0D2]  xl:border-[#000] border-t-2"></div>
+                                <div ref={line2Frame} className="w-[20px] h-[20px] absolute top-0 right-0 border-t-2 border-[#00D0D2] xl:border-[#000] border-r-2"></div>
+                                <div ref={line3Frame} className="w-[20px] h-[20px] absolute bottom-0 border-l-2 border-b-2 border-[#00D0D2] xl:border-[#000] left-0"></div>
+                                <div ref={line4Frame} className="w-[20px] h-[20px] absolute bottom-0 right-0 border-[#00D0D2] xl:border-[#000] border-r-2 border-b-2"></div>
                             </div>
-                            <h3 ref={textRef} className="font-bold text-[#000] text-[16px] xl:text-xl">BOOK A CONSULTATION</h3>
+                            <h3 ref={textRef} className="font-bold xl:text-[#000] text-[#00D0D2] text-[16px] xl:text-xl">BOOK A CONSULTATION</h3>
                         </div>
 
                         <div className="xl:w-[6vw] w-[20vw] xl:h-[13vh] h-[10vh] z-50 text-4xl font-bold flex items-center justify-center bg-[#000]">
@@ -277,13 +277,13 @@ const Footer = () => {
 
 
                 </div>
-                <div className='xl:flex xl:flex-col flex-row flex justify-between xl:justify-normal items-center xl:items-end'>
+                <div className='flex flex-col justify-normal items-start xl:mt-0 mt-[4vh] xl:items-end'>
                     <p className=' xl:text-[1.8vw] text-[5vw]'>Menu</p>
 
-                    <Link to='/' className=' xl:text-[1.8vw] text-[5vw]'>Main Page</Link>
-                    <Link to='/about' className=' xl:text-[1.8vw] text-[5vw]'>About us</Link>
-                    <Link to='/' className=' xl:text-[1.8vw] text-[5vw]'>Price</Link>
-                    <Link to='/gallery' className='n xl:text-[1.8vw] text-[5vw]'>Gallery</Link>
+                    <Link to='/' className=' xl:text-[1.8vw] text-[7vw]'>Main Page</Link>
+                    <Link to='/about' className=' xl:text-[1.8vw] text-[7vw]'>About us</Link>
+                    <Link to='/' className=' xl:text-[1.8vw] text-[7vw]'>Price</Link>
+                    <Link to='/gallery' className='n xl:text-[1.8vw] text-[7vw]'>Gallery</Link>
                 </div>
             </div>
             <div className='xl:flex-row xl:flex flex flex-col xl:items-end  items-center justify-between  mt-[2vw] px-[2.2vw]'>

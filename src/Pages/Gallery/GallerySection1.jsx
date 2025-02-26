@@ -30,7 +30,14 @@ const GallerySection1 = () => {
         }
     }, []);
 
+    useEffect(() => {
 
+        gsap.from("#gallerySection1Btn", {
+            y: 200,
+            opacity: 0,
+            duration: 1,
+        })
+    }, [])
 
     const animateText = () => {
         const chars = textRef.current.querySelectorAll(".char");
@@ -155,8 +162,8 @@ const GallerySection1 = () => {
 
 
 
-                <div
-                    className="Button-section3 xl:w-[30vw] xl:h-[13vh] w-[80vw] h-[13vh] bg-amber-200 flex items-center gap-1"
+                <div id='gallerySection1Btn'
+                    className="Button-section3 xl:w-[30vw] xl:h-[13vh] w-[80vw] h-[13vh]  flex items-center gap-1"
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
                 >

@@ -33,7 +33,14 @@ const AboutSection1 = () => {
         }
     }, []);
 
+    useEffect(() => {
 
+        gsap.from("#aboutSection1Btn", {
+            y: 200,
+            opacity: 0,
+            duration: 1,
+        })
+    }, [])
 
     const animateText = () => {
         const chars = textRef.current.querySelectorAll(".char");
@@ -156,8 +163,8 @@ const AboutSection1 = () => {
                 </div>
 
 
-                <div
-                    className="Button-section3 xl:w-[30vw] bg-amber-200 xl:h-[13vh] w-[80vw] h-[10vh] flex items-center gap-1"
+                <div id='aboutSection1Btn'
+                    className="Button-section3 xl:w-[30vw]  xl:h-[13vh] w-[80vw] h-[10vh] flex items-center gap-1"
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
                 >

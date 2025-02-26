@@ -1,4 +1,4 @@
-import  { useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import SplitType from 'split-type';
 import { MdArrowOutward } from 'react-icons/md';
@@ -26,7 +26,7 @@ const Section1 = () => {
     const line3Frame = useRef();
     const line4Frame = useRef();
 
-  
+
     useEffect(() => {
         if (textRef.current) {
             // Split text into words and characters
@@ -62,7 +62,7 @@ const Section1 = () => {
             });
         });
     };
-    
+
 
     const handleMouseEnter = () => {
         gsap.to(frameRef.current, {
@@ -81,11 +81,11 @@ const Section1 = () => {
         line2Frame.current.style.borderColor = "black";
         line3Frame.current.style.borderColor = "black";
         line4Frame.current.style.borderColor = "black";
-    
+
         animateText();
     };
-    
-    
+
+
 
     const handleMouseLeave = () => {
         gsap.to(frameRef.current, {
@@ -106,7 +106,16 @@ const Section1 = () => {
         line4Frame.current.style.borderColor = "#00D0D2";
     };
 
-    
+
+    useEffect(() => {
+
+        gsap.from("#section1-Btn", {
+            y: 200,
+            opacity: 0,
+            duration: 1,
+        })
+    }, [])
+
     useEffect(() => {
         const spanElement = H1Ref.current;
         const spanElement2 = H1Ref2.current;
@@ -150,7 +159,7 @@ const Section1 = () => {
                 <div className='HeadTextAnimation xl:mt-0 mt-[60vw]'>
                     <h1 className='xl:text-[7.29vw] text-[13vw] font-bold text-center'>
                         <a href="#" className="flip-animate">
-                            <span ref={H1Ref} className='text-white' data-hover="WE MAKE ART NOT">WE MAKE ART NOT</span>
+                            <span ref={H1Ref} className='text-white' data-hover="WE MAKE ART">WE MAKE ART</span>
                         </a>
                     </h1>
                     <h1 className='xl:text-[7.29vw] text-[13vw] text-center leading-[7vw] font-bold'>
@@ -160,7 +169,7 @@ const Section1 = () => {
                     </h1>
                 </div>
 
-                <div
+                <div id='section1-Btn'
                     className="Button-section3 xl:w-[30vw] xl:h-[13vh] w-[80vw] xl:mt-0  h-[10vh] flex items-center gap-1"
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}

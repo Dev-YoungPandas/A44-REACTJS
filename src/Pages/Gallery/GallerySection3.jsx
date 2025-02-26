@@ -87,7 +87,7 @@ const animateText = () => {
 
 
   return (
-    <div className="w-full flex items-center bg-white justify-center h-[45vh]">
+    <div className="w-full flex items-center bg-white justify-center h-[35vh] xl:h-[45vh]">
       <div
         className="Button-section3 w-[90vw] h-[10vh] xl:h-[13vh] flex items-center gap-1"
         onMouseEnter={handleMouseEnter}

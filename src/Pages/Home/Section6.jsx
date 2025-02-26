@@ -203,9 +203,9 @@ const Section6 = () => {
                         <div className=''>
                             <p className='font-semibold'>In addition to the consultation</p>
 
-                            <h4 className='text-2xl font-extrabold'>A TEAM OF OUR MASTERS WILL <br /> HELP YOU CREATE A FREE SKETCH</h4>
+                            <h4 className='xl:text-[24px] text-[7vw] xl:leading-[29px] mt-3 xl:mt-0 leading-[8vw] font-extrabold'>A TEAM OF OUR MASTERS WILL  HELP YOU CREATE A FREE SKETCH</h4>
 
-                            <p className='font-semibold mt-4'>We will select a suitable artist who will be ready to realize <br /> even the most daring ideas of your tattoos</p>
+                            <p className='font-semibold uppercase mt-4'>We will select a suitable artist who will be ready to realize  even the most daring ideas of your tattoos</p>
                         </div>
 
 

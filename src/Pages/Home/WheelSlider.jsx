@@ -26,7 +26,6 @@ const images = [
   "https://images.unsplash.com/photo-1591920689160-ee83654e464a?w=600&auto=format&fit=crop&q=60",
   "https://images.unsplash.com/photo-1621252792374-2b79e3fcf295?w=600&auto=format&fit=crop&q=60",
   "https://images.unsplash.com/photo-1507767439269-2c64f107e609?w=600&auto=format&fit=crop&q=60",
-  "https://images.unsplash.com/photo-1580274437636-1c384e59e9b5?w=600&auto=format&fit=crop&q=60",
 ];
 
 const WheelSlider = () => {
@@ -82,7 +81,7 @@ const WheelSlider = () => {
         start: 0,
         end: "max",
         scrub: 1,
-        snap: 1 / total,
+        // snap: 1 / total,
         invalidateOnRefresh: true,
       },
     });
